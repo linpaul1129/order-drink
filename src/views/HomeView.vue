@@ -3,8 +3,8 @@
 
 <template>
   <main>
+    <img alt="drink logo" class="logo" src="@/assets/drinks.svg" width="750" height="500" />
     <RouterLink to="/selectD">
-      <img alt="drink logo" class="logo" src="@/assets/drinks.svg" width="750" height="500" />
       <div class="hint">Enter 進入</div>
     </RouterLink>
   </main>

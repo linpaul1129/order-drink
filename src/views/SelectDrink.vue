@@ -1,11 +1,27 @@
 <script setup lang="ts">
 import TopBarVue from "../components/TopBar.vue"
 import axios from "axios";
-import { onMounted } from "vue";
-let items: Array<object> = []
+import { ref, onMounted } from "vue";
+const items: Array<object> = []
+
+interface ApiResponse {
+  code: number,
+  tableData: Array<object>
+}
+
+const renew = ref(0)
+
 onMounted(() => {
+  const theAxios = ref<ApiResponse>()
   axios.get("/home/getdata").then((res) => {
-    items = res.data.tableData
+    let data = res.data
+    theAxios.value = data
+    console.log(theAxios.value?.tableData)
+    if (theAxios.value?.code === 200) {
+      for (let i = 0; i < theAxios.value?.tableData.length; i++)
+        items.push(theAxios.value?.tableData[i])
+    }
+    renew.value++
   })
 })
 function minWidth(str: string) {
@@ -25,7 +41,7 @@ function add() {
   <br/>
   <el-table 
     :data="items"
-    :key="items"
+    :key="renew"
   >
     <el-table-column label="名稱" align="center" :min-width="minWidth('名稱')" prop="order" ></el-table-column>
     <el-table-column label="尺寸" align="center" :min-width="minWidth('尺寸')" prop="size"></el-table-column>
