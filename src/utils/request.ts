@@ -1,13 +1,30 @@
 import axios from 'axios';
-const baseURL = ' http://127.0.0.1:5173';
+const baseURL = 'http://127.0.0.1:5173';
+
+declare module "axios" {
+  interface AxiosResponse<T = any> {
+      code: number
+      message: string
+      result: T
+  }
+  interface InternalAxiosRequestConfig<D = any> {
+      isRetry: boolean
+      isRetryNow: number
+      apiPaths: string[]
+      cmd: string
+  }
+  export function create(config?: AxiosRequestConfig): AxiosInstance;
+}
+
 const service = axios.create({
   baseURL,
   timeout: 5000, // request timeout
 });
-// 发起请求之前的拦截器
+
+// 發起請求前的攔截器
 service.interceptors.request.use(
   (config) => {
-    // 如果有token 就携带tokon
+    // 如有token 就帶tokon
     const token = window.localStorage.getItem('accessToken');
     if (token) {
       config.headers.common.Authorization = token;
@@ -16,7 +33,7 @@ service.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-// 响应拦截器
+// 響應攔截器
 service.interceptors.response.use(
   (response) => {
     const res = response.data;
