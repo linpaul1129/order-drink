@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import SelectDrink from '../views/SelectDrink.vue'
+import RecordDrink from '../views/RecordDrink.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,9 +11,9 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/selectD',
-      name: 'selectD',
-      component: SelectDrink
+      path: '/recordDrink',
+      name: 'recordDrink',
+      component: RecordDrink
     }
   ]
 })

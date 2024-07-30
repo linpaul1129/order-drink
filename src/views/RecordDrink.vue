@@ -91,7 +91,7 @@ const save = () => {
       <el-form-item label="品項">
         <el-input class="input-type" v-model="state.dialogData.order" placeholder="請輸入品項"></el-input>
       </el-form-item>
-      <el-form-item label="杯量">
+      <el-form-item label="尺寸">
         <el-select v-model="state.dialogData.size" class="input-type">
           <el-option v-for="(item, index) in sizeList" :key="index" :label="item.value" :value="item.value"></el-option>
         </el-select>
